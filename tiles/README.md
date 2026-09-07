@@ -97,6 +97,7 @@ The **Platforms** column is what the author tested, not what might work.
 | [disk](disk) | none | `value`: a readout with a caption and a second line, on a `refresh` | macOS, Linux |
 | [lock](lock) | none | `press` with no `value`: a button, with `confirm`, `icon` and `mnemonic` | macOS, Linux |
 | [vpn](vpn) | NetworkManager (Linux), `scutil` (macOS) | `state` for the on/off treatment, and printing nothing to hide the tile | Linux, macOS |
+| [sound](sound) | wpctl, Python 3 | dynamic SVG and `state` for output mute, plus `press` to toggle | Linux |
 
 ## Read before you install
 

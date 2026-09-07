@@ -1,0 +1,33 @@
+# Show and toggle mute on the default output device. Linux, PipeWire.
+#
+# Merge into ~/.look/super-actions.toml: put "sound" somewhere in the `layout`
+# drawing, then paste this block onto the end of the file.
+#
+# `value` supplies the current state and matching icon. Look refreshes it again
+# immediately after `press`, so the tile follows the new state without waiting.
+
+[tiles.sound]
+value = '''
+python3 - <<'PY'
+import json
+import subprocess
+
+status = subprocess.run(
+    ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"],
+    check=True,
+    capture_output=True,
+    text=True,
+).stdout
+muted = "[MUTED]" in status
+print(json.dumps({
+    "value": "MUTED" if muted else "ON",
+    "caption": "AUDIO",
+    "state": "on" if muted else "off",
+    "icon": "~/.look/icons/mute-muted.svg" if muted else "~/.look/icons/mute-unmuted.svg",
+}))
+PY
+'''
+press = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+refresh = "5s"
+title = "Sound"
+mnemonic = "S"
